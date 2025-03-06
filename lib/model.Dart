@@ -1,3 +1,9 @@
+import 'package:http/http.dart' as http;
+
+ Future<http.Response> fetchAlbum() {
+    return http.get(Uri.parse('http://localhost:5000/api/auth/login'));
+  }
+
 class Patient {
   
   final int id;
@@ -5,9 +11,9 @@ class Patient {
   final String mobile_number;
   final String address;
 
-  const Album({required this.userId, required this.id, required this.title});
+  const ({required this.userId, required this.id, required this.title});
 
-  factory Album.fromJson(Map<String, dynamic> json) {
+  factory Patient.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {'userId': int userId, 'id': int id, 'title': String title} => Album(
         userId: userId,
