@@ -1,9 +1,18 @@
 import 'package:http/http.dart' as http;
 
- Future<http.Response> fetchAlbum() {
-    return http.get(Uri.parse('http://localhost:5000/api/auth/login'));
-  }
+Future<Album> fetchPatient() async {
+  final response = await http.get(
+    Uri.parse('https://ecxlbqqybibgiqagryho.supabase.co/rest/v1/patients'),
+  );
 
+  if (response.statusCode == 200) {
+  
+    return Album.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    
+    throw Exception('Failed to load album');
+  }
+}
 class Patient {
   
   final int id;
@@ -15,10 +24,13 @@ class Patient {
 
   factory Patient.fromJson(Map<String, dynamic> json) {
     return switch (json) {
-      {'userId': int userId, 'id': int id, 'title': String title} => Album(
+      {'userId': int userId, 'id': int id, 'created_at': String created_at, 'mobile_number': String mobile_number, 'address': String address } => Patient(
         userId: userId,
         id: id,
-        title: title,
+        created_at: created_at,
+        mobile_number: mobile_number,
+        address: address,
+
       ),
       _ => throw const FormatException('Failed to load album.'),
     };

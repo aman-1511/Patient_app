@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
+late Future<Pateint> future;
 
 class Getpatientdata extends StatefulWidget {
   const Getpatientdata({super.key});
@@ -9,8 +10,9 @@ class Getpatientdata extends StatefulWidget {
 }
 
 class _GetpatientdataState extends State<Getpatientdata> {
-  Future<http.Response> fetchAlbum() {
-    return http.get(Uri.parse('http://localhost:5000/api/auth/login'));
+  void initState() {
+    super.initState();
+    futurePatient = fetchPatient();
   }
 
   @override
